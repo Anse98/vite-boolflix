@@ -11,7 +11,7 @@ export default {
   },
 
   methods: {
-    showMovies() {
+    showMoviesSeries() {
       axios.get(`${this.moviesUrl}?api_key=${this.API_KEY}&query=${this.store.searchValue}`).then(res => {
         this.store.movies = res.data.results;
       })
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <PageHeader @show="showMovies" />
+  <PageHeader @show="showMoviesSeries" />
   <PageMain />
 </template>
 

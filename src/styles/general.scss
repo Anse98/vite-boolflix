@@ -28,3 +28,9 @@ a {
 img {
   width: 100%;
 }
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

@@ -13,7 +13,7 @@ export default {
   methods: {
     showMovies() {
       axios.get(`${this.moviesUrl}?api_key=${this.API_KEY}&query=${this.store.searchValue}`).then(res => {
-        console.log(res.data.results);
+        this.store.movies = res.data.results;
       })
     }
   },
@@ -26,7 +26,7 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
 
   }
 }

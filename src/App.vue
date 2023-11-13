@@ -18,7 +18,6 @@ export default {
 
       axios.get(`${this.seriesUrl}?api_key=${this.API_KEY}&query=${this.store.searchValue}`).then(res => {
         this.store.series = res.data.results;
-        console.log(this.store.series)
       })
     }
   },

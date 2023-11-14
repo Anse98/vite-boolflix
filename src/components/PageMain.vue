@@ -9,6 +9,7 @@ export default {
       store: store,
     }
   },
+
   methods: {
 
   },
@@ -24,15 +25,16 @@ export default {
   <main>
     <div class="main-content">
 
-      <!-- FILM -->
+
       <div class="container">
 
         <div class="row">
 
-          <Card v-for="movie in store.movies" :item="movie" :cardType="'movie'" />
+          <!-- FILM -->
+          <Card v-for="movie in store.movies" :item="movie" />
 
           <!-- SERIE TV -->
-          <Card v-for="serie in store.series" :item="serie" :cardType="'series'" />
+          <Card v-for="serie in store.series" :item="serie" />
 
         </div>
       </div>

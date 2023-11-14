@@ -19,10 +19,9 @@ export default {
       <div class="title">
         <h1>BOOLFLIX</h1>
       </div>
-      <div>
+      <div class="searchbar">
         <input type="search" placeholder="Cerca Film o serie tv" v-model.trim="store.searchValue"
           @keyup.enter="$emit('show')">
-        <button @click="$emit('show')">Cerca</button>
       </div>
     </nav>
   </header>
@@ -42,8 +41,15 @@ header {
       color: red;
     }
 
-    input {
-      padding-left: 10px;
+    .searchbar {
+
+
+      input {
+        padding: 8px;
+        border: solid 3px red;
+        border-radius: 6px;
+
+      }
     }
   }
 }

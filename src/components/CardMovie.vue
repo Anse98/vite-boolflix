@@ -1,5 +1,7 @@
 <script>
 
+import { store } from '../store';
+
 export default {
 
   props: {
@@ -7,26 +9,22 @@ export default {
       type: Object,
       required: true,
     },
-
-    cardType: {
-      type: String,
-      required: true,
-    }
   },
 
   data() {
     return {
       languages: ['it', 'en', 'de'],
+      store,
     }
   },
 
   computed: {
     title() {
-      return (this.cardType === 'movie') ? this.item.title : this.item.name;
+      return this.item.title ? this.item.title : this.item.name;
     },
 
     originalTitle() {
-      return (this.cardType === 'movie') ? this.item.original_title : this.item.original_name;
+      return this.item.original_title ? this.item.original_title : this.item.original_name;
     },
 
     valutation() {
@@ -43,8 +41,8 @@ export default {
     <!-- Immagine di copertina -->
     <div class="film-image">
       <figure>
-        <img :src="'https://image.tmdb.org/t/p/w1280/' + item.poster_path"
-          alt=" Nessuna immagine di copertina disponibile">
+        <img v-if="item.poster_path" :src="'https://image.tmdb.org/t/p/w1280/' + item.poster_path" alt="">
+        <img v-else src="https://www.avmagazine.it/immagini/netflix_frame_rate_4.jpg">
       </figure>
     </div>
 
@@ -54,7 +52,7 @@ export default {
         <p>Titolo : {{ title }}</p>
       </div>
 
-      <div class="original-title">
+      <div class="original-title" v-if="title !== originalTitle">
         <p>Titolo originale: {{ originalTitle }}</p>
       </div>
 
@@ -73,15 +71,19 @@ export default {
         <!-- stelle piene -->
         <span>Voto: </span>
 
-        <span v-for="star in valutation">
-          <font-awesome-icon icon="fa-solid fa-star" />
+        <span v-for="star in valutation" :key="star">
+          <font-awesome-icon icon="fa-solid fa-star" class="icon" />
         </span>
 
         <!-- stelle vuote -->
-        <span v-for="star in 5 - valutation">
-          <font-awesome-icon icon="fa-regular fa-star" />
+        <span v-for="star in 5 - valutation" :key="star">
+          <font-awesome-icon icon="fa-regular fa-star" class="icon" />
         </span>
 
+      </div>
+
+      <div class="overview">
+        <p>{{ item.overview }}</p>
       </div>
     </div>
   </div>
@@ -96,6 +98,7 @@ export default {
   flex-direction: column;
   position: relative;
 
+
   .film-image,
   .serie-image {
 
@@ -104,6 +107,7 @@ export default {
       max-width: 200px;
       border: solid 2px lightgray;
       display: flex;
+      flex-direction: column;
       justify-content: center;
     }
   }
@@ -125,15 +129,23 @@ export default {
     border: solid 2px lightgray;
     padding: 10px;
     display: none;
+
+    .icon {
+      color: yellow;
+    }
   }
 
   &:hover .informations {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    row-gap: 10px;
+    overflow-y: scroll;
+    padding: 10px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
   }
 }
 </style>

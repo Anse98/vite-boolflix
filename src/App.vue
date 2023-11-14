@@ -5,13 +5,21 @@ import axios from 'axios';
 import { store } from './store';
 
 export default {
+
   components: {
     PageHeader,
     PageMain,
   },
 
+  data() {
+    return {
+      store,
+    }
+  },
+
   methods: {
     showMoviesSeries() {
+
       axios.get(`${this.moviesUrl}?api_key=${this.API_KEY}&query=${this.store.searchValue}`).then(res => {
         this.store.movies = res.data.results;
       })
